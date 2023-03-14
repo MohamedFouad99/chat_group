@@ -15,7 +15,6 @@ import 'chat_screen.dart';
 
 class SignIn extends StatelessWidget {
   static const String screenRoute = 'signin_screen';
-  final auth = FirebaseAuth.instance;
   late String email;
   late String password;
   bool isLoading = false;
