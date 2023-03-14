@@ -139,7 +139,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     const SizedBox(height: 10),
                     MyButton(
                       color: kPrimaryColor,
-                      title: 'choose phto',
+                      title: 'choose photo',
                       onPresssed: () {
                         pickImage(ImageSource.gallery);
                       },
