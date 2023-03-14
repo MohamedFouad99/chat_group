@@ -87,7 +87,7 @@ class _SignInState extends State<SignIn> {
                                     showSnackBar(context, 'wrong password');
                                   }
                                 } catch (ex) {
-                                  showSnackBar(context, 'there was an error');
+                                  showSnackBar(context, ex.toString());
                                 }
                                 isLoading = false;
                                 setState(() {});
@@ -106,7 +106,7 @@ class _SignInState extends State<SignIn> {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : const SizedBox()
+              : const SizedBox(),
         ],
       ),
     );

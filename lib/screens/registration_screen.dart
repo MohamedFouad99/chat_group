@@ -9,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../constant/constant_color.dart';
+import '../helper/show_snack_bar.dart';
 import '../widgets/custom_text_form_filed.dart';
 import '../widgets/my_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,6 +35,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   late String email;
   late String password;
   late String photoUrl;
+  bool isLoading = false;
+  GlobalKey<FormState> formKey = GlobalKey();
   Future<void> registerUser() async {
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
@@ -55,17 +58,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         'photoUrl': photoUrl,
       });
 
-      // Navigate to home screen
       Navigator.pushReplacementNamed(context, ChatScreen.screenRoute);
+      showSnackBar(context, 'You created a new account successfully.');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        showSnackBar(context, 'The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        showSnackBar(context, 'The account already exists for that email.');
       }
     } catch (e) {
-      print(e);
+      showSnackBar(context, e.toString());
     }
+    isLoading = false;
+    setState(() {});
   }
 
   File? imageFile;
@@ -81,82 +86,118 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: SingleChildScrollView(
-          child: Center(
-            child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-              BoxConstraints customConstraints = const BoxConstraints(
-                maxWidth: 700,
-              );
-              return SizedBox(
-                width: customConstraints.maxWidth,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * .05),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * .35,
-                      child: SvgPicture.asset('assets/svg/group_chat3.svg'),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * .04),
-                    CustomTextFiled(
-                      hint: 'Enter Your Name',
-                      onChange: (value) {
-                        displayName = value!;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomTextFiled(
-                      hint: 'Enter Your Email',
-                      onChange: (value) {
-                        email = value!;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomTextFiled(
-                      hint: 'Enter Your Password',
-                      onChange: (value) {
-                        password = value!;
-                      },
-                      obscure: true,
-                    ),
-                    const SizedBox(height: 8),
-                    imageFile == null
-                        ? SizedBox.shrink()
-                        : Image.file(
-                            imageFile!,
-                            height: 200.0,
-                            width: 200.0,
-                            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: SingleChildScrollView(
+              child: Center(
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  BoxConstraints customConstraints = const BoxConstraints(
+                    maxWidth: 700,
+                  );
+                  return SizedBox(
+                    width: customConstraints.maxWidth,
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * .05),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * .35,
+                            child:
+                                SvgPicture.asset('assets/svg/group_chat3.svg'),
                           ),
-                    const SizedBox(height: 10),
-                    MyButton(
-                      color: kPrimaryColor,
-                      title: 'choose photo',
-                      onPresssed: () {
-                        pickImage(ImageSource.gallery);
-                      },
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * .04),
+                          imageFile == null
+                              ? const SizedBox()
+                              : Row(
+                                  children: [
+                                    const Spacer(),
+                                    Container(
+                                      width: 120,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(200),
+                                        image: DecorationImage(
+                                          image: FileImage(imageFile!),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                  ],
+                                ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          CustomTextFiled(
+                            hint: 'Enter Your Name',
+                            onChange: (value) {
+                              displayName = value!;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomTextFiled(
+                            hint: 'Enter Your Email',
+                            onChange: (value) {
+                              email = value!;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomTextFiled(
+                            hint: 'Enter Your Password',
+                            onChange: (value) {
+                              password = value!;
+                            },
+                            obscure: true,
+                          ),
+                          const SizedBox(height: 8),
+                          const SizedBox(height: 10),
+                          imageFile == null
+                              ? MyButton(
+                                  color: ksecondryColor,
+                                  title: 'choose photo',
+                                  onPresssed: () {
+                                    pickImage(ImageSource.gallery);
+                                  },
+                                )
+                              : SizedBox(),
+                          MyButton(
+                            color: kPrimaryColor,
+                            title: 'Register',
+                            onPresssed: () async {
+                              if (formKey.currentState!.validate()) {
+                                isLoading = true;
+                                setState(() {});
+                                await registerUser();
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                    MyButton(
-                      color: kPrimaryColor,
-                      title: 'Register',
-                      onPresssed: () {
-                        registerUser();
-                      },
-                    ),
-                  ],
-                ),
-              );
-            }),
+                  );
+                }),
+              ),
+            ),
           ),
-        ),
+          isLoading == true
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : const SizedBox(),
+        ],
       ),
     );
   }
