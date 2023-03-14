@@ -1,7 +1,9 @@
+import 'package:chat_group/constant/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../widgets/my_button.dart';
+import 'sign_in.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -45,12 +47,14 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   MyButton(
-                    color: Colors.yellow[900]!,
+                    color: ksecondryColor,
                     title: 'Sign In',
-                    onPresssed: () {},
+                    onPresssed: () {
+                      Navigator.pushNamed(context, SignIn.screenRoute);
+                    },
                   ),
                   MyButton(
-                    color: Colors.blue[800]!,
+                    color: kPrimaryColor,
                     title: 'Register',
                     onPresssed: () {},
                   ),

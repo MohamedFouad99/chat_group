@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'screens/sign_in.dart';
 import 'screens/welcome_screen.dart';
 
 void main() {
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         initialRoute: WelcomeScreen.screenRoute,
         routes: {
           WelcomeScreen.screenRoute: (context) => const WelcomeScreen(),
+          SignIn.screenRoute: (context) => const SignIn(),
         });
   }
 }
