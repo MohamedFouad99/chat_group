@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/registration_screen.dart';
 import 'screens/sign_in.dart';
 import 'screens/welcome_screen.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         routes: {
           WelcomeScreen.screenRoute: (context) => const WelcomeScreen(),
           SignIn.screenRoute: (context) => const SignIn(),
+          RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
         });
   }
 }

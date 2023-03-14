@@ -1,4 +1,5 @@
 import 'package:chat_group/constant/constant_color.dart';
+import 'package:chat_group/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -56,7 +57,10 @@ class WelcomeScreen extends StatelessWidget {
                   MyButton(
                     color: kPrimaryColor,
                     title: 'Register',
-                    onPresssed: () {},
+                    onPresssed: () {
+                      Navigator.pushNamed(
+                          context, RegistrationScreen.screenRoute);
+                    },
                   ),
                 ],
               ),
