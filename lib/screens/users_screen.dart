@@ -37,7 +37,9 @@ Future<void> getuser() async {
       FirebaseFirestore.instance.collection('users');
   final QuerySnapshot querySnapshot = await collectionReference.get();
   final List<DocumentSnapshot> documents = querySnapshot.docs;
-
+  names.clear();
+  emails.clear();
+  photos.clear();
   for (final DocumentSnapshot document in documents) {
     final String name = document.get('displayName');
     final String email = document.get('email');
