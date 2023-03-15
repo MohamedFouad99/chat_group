@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 class MessageLine extends StatelessWidget {
   const MessageLine({
+    super.key,
     this.text,
     this.senderName,
     required this.isMe,
-    required this.senderEmail,
+    required this.sender,
   });
   final String? senderName;
-  final String? senderEmail;
+  final String? sender;
   final String? text;
   final bool isMe;
   @override
@@ -20,18 +21,18 @@ class MessageLine extends StatelessWidget {
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
-            '$senderEmail',
+            '$sender',
             style: TextStyle(fontSize: 12, color: Colors.yellow[900]),
           ),
           Material(
             elevation: 5,
             borderRadius: isMe
-                ? BorderRadius.only(
+                ? const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),
                   )
-                : BorderRadius.only(
+                : const BorderRadius.only(
                     topRight: Radius.circular(30),
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),

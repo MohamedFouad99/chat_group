@@ -1,11 +1,13 @@
-import 'package:chat_group/constant/constant_color.dart';
+// ignore_for_file: avoid_print, use_key_in_widget_constructors, prefer_const_constructors, library_private_types_in_public_api
 import 'package:chat_group/screens/users_screen.dart';
 import 'package:chat_group/screens/welcome_screen.dart';
-import 'package:chat_group/widgets/custom_text_form_filed.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chat_group/widgets/messages_list.dart';
+import 'package:chat_group/widgets/send_opition.dart';
 import 'package:flutter/material.dart';
-import '../widgets/messages_list.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../constant/constant_color.dart';
 
 final firestore = FirebaseFirestore.instance;
 late User signedInUser; //to give us the email
@@ -19,7 +21,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final auth = FirebaseAuth.instance;
-  final firestore = FirebaseFirestore.instance;
   String? messageText; //to give us the message
   @override
   void initState() {
@@ -28,6 +29,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   @override
+  // ignore: unused_element
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -50,60 +52,17 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MessagesList(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.mic,
-                      color: kPrimaryColor,
-                    )),
-                Expanded(
-                    child: CustomTextFiled(
-                  hint: 'Write message..',
-                  controller: messageTextController,
-                  onChange: (value) {
-                    messageText = value;
-                  },
-                  prefixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.image,
-                        color: kPrimaryColor,
-                      )),
-                  suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.picture_as_pdf,
-                        color: kPrimaryColor,
-                      )),
-                )),
-                IconButton(
-                    onPressed: () {
-                      messageTextController.clear();
-                      firestore.collection('messages').add({
-                        'text': messageText,
-                        'senderName': signedInUser.displayName,
-                        'senderEmail': signedInUser.email,
-                        'time': FieldValue.serverTimestamp(),
-                      });
-                    },
-                    icon: Icon(
-                      Icons.send,
-                      color: kPrimaryColor,
-                    )),
-              ],
-            ),
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            MessagesList(),
+            SendOpition(
+                messageText: messageText,
+                messageTextController: messageTextController),
+          ],
+        ),
       ),
     );
   }
@@ -119,4 +78,9 @@ class _ChatScreenState extends State<ChatScreen> {
       print(e);
     }
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  throw UnimplementedError();
 }
