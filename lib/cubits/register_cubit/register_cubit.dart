@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, depend_on_referenced_packages
 
 import 'dart:io';
 
@@ -21,7 +21,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> pickImage(ImageSource source) async {
     PickedFile? pickedFile = await picker.getImage(source: source);
     emit(PickedImageSuccess(imageFile: File(pickedFile!.path)));
-    // imageFile = File(pickedFile!.path);
   }
 
   Future<void> registerUser(

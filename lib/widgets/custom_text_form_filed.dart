@@ -8,16 +8,23 @@ class CustomTextFiled extends StatelessWidget {
       required this.hint,
       this.maxLines = 1,
       this.onSaved,
+      this.controller,
       this.obscure = false,
+      this.prefixIcon,
+      this.suffixIcon,
       this.onChange});
   final String hint;
+  final TextEditingController? controller;
   final int maxLines;
   final bool obscure;
   final void Function(String?)? onSaved;
   final void Function(String?)? onChange;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       obscureText: obscure,
       onSaved: onSaved,
       onChanged: onChange,
@@ -32,6 +39,8 @@ class CustomTextFiled extends StatelessWidget {
       textAlign: TextAlign.center,
       cursorColor: kPrimaryColor,
       decoration: InputDecoration(
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         hintText: hint,
         border: buildBorder(),
         enabledBorder: buildBorder(ksecondryColor),

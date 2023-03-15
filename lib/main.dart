@@ -1,5 +1,6 @@
 import 'package:chat_group/cubits/register_cubit/register_cubit.dart';
 import 'package:chat_group/cubits/sign_in_cubit/sign_in_cubit.dart';
+import 'package:chat_group/screens/users_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
             WelcomeScreen.screenRoute: (context) => const WelcomeScreen(),
             SignIn.screenRoute: (context) => SignIn(),
             RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
-            ChatScreen.screenRoute: (context) => const ChatScreen(),
+            ChatScreen.screenRoute: (context) => ChatScreen(),
+            UsersScreen.screenRoute: (context) => UsersScreen(),
           }),
     );
   }
