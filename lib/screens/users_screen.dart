@@ -1,52 +1,45 @@
-import 'package:chat_group/constant/constant_color.dart';
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: must_be_immutable
 
-final List<String> names = [];
-final List<String> emails = [];
-final List<String> photos = [];
+import 'package:chat_group/constant/constant_color.dart';
+import 'package:chat_group/cubits/user_cubit/user_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UsersScreen extends StatelessWidget {
   static const String screenRoute = 'users_screen';
 
-  const UsersScreen({super.key});
-
+  UsersScreen({super.key});
+  List<String> names = [];
+  List<String> emails = [];
+  List<String> photos = [];
   @override
   Widget build(BuildContext context) {
-    getuser();
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: ksecondryColor, title: const Text('Group Member')),
-      body: ListView.builder(
-          itemCount: names.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(photos[index]),
-              ),
-              title: Text(names[index]),
-              subtitle: Text(emails[index]),
-            );
-          }),
+    return BlocConsumer<UserCubit, UserState>(
+      listener: (context, state) {
+        if (state is UserSuccess) {
+          names = state.names;
+          emails = state.emails;
+          photos = state.photos;
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+              backgroundColor: ksecondryColor,
+              title: const Text('Group Member')),
+          body: ListView.builder(
+              itemCount: names.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(photos[index]),
+                  ),
+                  title: Text(names[index]),
+                  subtitle: Text(emails[index]),
+                );
+              }),
+        );
+      },
     );
-  }
-}
-
-Future<void> getuser() async {
-  final CollectionReference collectionReference =
-      FirebaseFirestore.instance.collection('users');
-  final QuerySnapshot querySnapshot = await collectionReference.get();
-  final List<DocumentSnapshot> documents = querySnapshot.docs;
-  names.clear();
-  emails.clear();
-  photos.clear();
-  for (final DocumentSnapshot document in documents) {
-    final String name = document.get('displayName');
-    final String email = document.get('email');
-    final String photo = document.get('photoUrl');
-
-    names.add(name);
-    emails.add(email);
-    photos.add(photo);
   }
 }

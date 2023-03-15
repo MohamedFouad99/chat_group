@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constant/constant_color.dart';
 import '../cubits/chat_cubit/chat_cubit.dart';
+import '../cubits/user_cubit/user_cubit.dart';
 
 final firestore = FirebaseFirestore.instance;
 late User signedInUser; //to give us the email
@@ -40,6 +41,7 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           IconButton(
             onPressed: () {
+              BlocProvider.of<UserCubit>(context).getuser();
               Navigator.pushNamed(context, UsersScreen.screenRoute);
             },
             icon: const Icon(Icons.group),
