@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:chat_group/constant/constant_color.dart';
 import 'package:chat_group/cubits/sign_in_cubit/sign_in_cubit.dart';
 
+import '../cubits/chat_cubit/chat_cubit.dart';
 import '../helper/show_snack_bar.dart';
 import '../widgets/custom_text_form_filed.dart';
 import '../widgets/my_button.dart';
@@ -28,6 +29,7 @@ class SignIn extends StatelessWidget {
         if (state is SignInLoading) {
           isLoading = true;
         } else if (state is SignInSuccess) {
+          BlocProvider.of<ChatCubit>(context).getMessages();
           Navigator.pushReplacementNamed(context, ChatScreen.screenRoute);
           showSnackBar(context, 'Welcome back');
           isLoading = false;

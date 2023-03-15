@@ -1,14 +1,13 @@
+import 'package:chat_group/constant/constant_color.dart';
 import 'package:flutter/material.dart';
 
 class MessageLine extends StatelessWidget {
   const MessageLine({
     super.key,
     this.text,
-    this.senderName,
     required this.isMe,
     required this.sender,
   });
-  final String? senderName;
   final String? sender;
   final String? text;
   final bool isMe;
@@ -22,7 +21,7 @@ class MessageLine extends StatelessWidget {
         children: [
           Text(
             '$sender',
-            style: TextStyle(fontSize: 12, color: Colors.yellow[900]),
+            style: TextStyle(fontSize: 12, color: ksecondryColor),
           ),
           Material(
             elevation: 5,
@@ -37,7 +36,7 @@ class MessageLine extends StatelessWidget {
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),
                   ),
-            color: isMe ? Colors.blue[800] : Colors.white,
+            color: isMe ? kPrimaryColor : Colors.white,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Text(
