@@ -21,7 +21,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> pickImage(ImageSource source) async {
     PickedFile? pickedFile = await picker.getImage(source: source);
     emit(PickedImageSuccess(imageFile: File(pickedFile!.path)));
-    // imageFile = File(pickedFile!.path);
   }
 
   Future<void> registerUser(
