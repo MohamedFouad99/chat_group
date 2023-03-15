@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'cubits/chat_cubit/chat_cubit.dart';
 import 'firebase_options.dart';
 import 'screens/chat_screen.dart';
 import 'screens/registration_screen.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RegisterCubit(),
         ),
+        BlocProvider(
+          create: (context) => ChatCubit(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -43,7 +47,7 @@ class MyApp extends StatelessWidget {
             SignIn.screenRoute: (context) => SignIn(),
             RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
             ChatScreen.screenRoute: (context) => ChatScreen(),
-            UsersScreen.screenRoute: (context) => UsersScreen(),
+            UsersScreen.screenRoute: (context) => const UsersScreen(),
           }),
     );
   }

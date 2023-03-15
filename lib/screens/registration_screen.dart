@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:chat_group/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chat_group/cubits/register_cubit/register_cubit.dart';
 import 'package:chat_group/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class RegistrationScreen extends StatelessWidget {
         if (state is RegisterLoading) {
           isLoading = true;
         } else if (state is RegisterSuccess) {
+          BlocProvider.of<ChatCubit>(context).getMessages();
           Navigator.pushReplacementNamed(context, ChatScreen.screenRoute);
           showSnackBar(context, 'You created a new account successfully.');
           isLoading = false;

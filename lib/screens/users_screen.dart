@@ -9,6 +9,8 @@ final List<String> photos = [];
 class UsersScreen extends StatelessWidget {
   static const String screenRoute = 'users_screen';
 
+  const UsersScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     getuser();

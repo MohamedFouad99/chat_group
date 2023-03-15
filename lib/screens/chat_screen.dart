@@ -6,8 +6,10 @@ import 'package:chat_group/widgets/send_opition.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constant/constant_color.dart';
+import '../cubits/chat_cubit/chat_cubit.dart';
 
 final firestore = FirebaseFirestore.instance;
 late User signedInUser; //to give us the email
@@ -26,10 +28,10 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     getCurrentUser();
+    BlocProvider.of<ChatCubit>(context).getMessages();
   }
 
   @override
-  // ignore: unused_element
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -78,9 +80,4 @@ class _ChatScreenState extends State<ChatScreen> {
       print(e);
     }
   }
-}
-
-@override
-Widget build(BuildContext context) {
-  throw UnimplementedError();
 }

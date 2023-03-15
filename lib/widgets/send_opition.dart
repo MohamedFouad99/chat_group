@@ -1,10 +1,9 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:chat_group/cubits/chat_cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../constant/constant_color.dart';
-import '../screens/chat_screen.dart';
 import 'custom_text_form_filed.dart';
 
 class SendOpition extends StatelessWidget {
@@ -50,11 +49,8 @@ class SendOpition extends StatelessWidget {
           IconButton(
               onPressed: () {
                 messageTextController.clear();
-                firestore.collection('messages').add({
-                  'text': messageText,
-                  'sender': signedInUser.email,
-                  'time': FieldValue.serverTimestamp(),
-                });
+                BlocProvider.of<ChatCubit>(context)
+                    .sendMessage(message: messageText ?? "");
               },
               icon: Icon(
                 Icons.send,
