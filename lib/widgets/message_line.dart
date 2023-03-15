@@ -5,10 +5,12 @@ class MessageLine extends StatelessWidget {
   const MessageLine({
     super.key,
     this.text,
+    this.image,
     required this.isMe,
     required this.sender,
   });
   final String? sender;
+  final String? image;
   final String? text;
   final bool isMe;
   @override
@@ -38,12 +40,17 @@ class MessageLine extends StatelessWidget {
                   ),
             color: isMe ? kPrimaryColor : Colors.white,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Text(
-                '$text ',
-                style: TextStyle(
-                    fontSize: 15, color: isMe ? Colors.white : Colors.black45),
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+              child: text != ""
+                  ? Text(
+                      '$text ',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: isMe ? Colors.white : Colors.black45),
+                    )
+                  : SizedBox(
+                      width: MediaQuery.of(context).size.width * .4,
+                      child: Image.network('$image')),
             ),
           ),
         ],

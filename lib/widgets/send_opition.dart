@@ -3,6 +3,7 @@
 import 'package:chat_group/cubits/chat_cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import '../constant/constant_color.dart';
 import 'custom_text_form_filed.dart';
 
@@ -34,7 +35,10 @@ class SendOpition extends StatelessWidget {
               messageText = value;
             },
             prefixIcon: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<ChatCubit>(context)
+                      .pickImage(ImageSource.gallery);
+                },
                 icon: Icon(
                   Icons.image,
                   color: kPrimaryColor,
