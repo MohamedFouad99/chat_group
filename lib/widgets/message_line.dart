@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:chat_group/constant/constant_color.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MessageLine extends StatelessWidget {
   const MessageLine({
@@ -50,7 +53,13 @@ class MessageLine extends StatelessWidget {
                     )
                   : SizedBox(
                       width: MediaQuery.of(context).size.width * .4,
-                      child: Image.network('$image')),
+                      child: InkWell(
+                          onTap: () async {
+                            if (await canLaunch(image!)) {
+                              await launch(image!);
+                            }
+                          },
+                          child: Image.network('$image'))),
             ),
           ),
         ],

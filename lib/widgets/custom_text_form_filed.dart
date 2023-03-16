@@ -6,6 +6,7 @@ class CustomTextFiled extends StatelessWidget {
   const CustomTextFiled(
       {super.key,
       required this.hint,
+      required this.keyBoardType,
       this.maxLines = 1,
       this.onSaved,
       this.controller,
@@ -21,9 +22,11 @@ class CustomTextFiled extends StatelessWidget {
   final void Function(String?)? onChange;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final TextInputType keyBoardType;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyBoardType,
       controller: controller,
       obscureText: obscure,
       onSaved: onSaved,

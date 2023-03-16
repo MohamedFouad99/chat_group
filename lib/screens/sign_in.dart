@@ -71,6 +71,7 @@ class SignIn extends StatelessWidget {
                                 height:
                                     MediaQuery.of(context).size.height * .04),
                             CustomTextFiled(
+                              keyBoardType: TextInputType.emailAddress,
                               hint: 'Enter Your Email',
                               onChange: (value) {
                                 email = value!;
@@ -81,6 +82,7 @@ class SignIn extends StatelessWidget {
                             ),
                             CustomTextFiled(
                               hint: 'Enter Your Password',
+                              keyBoardType: TextInputType.visiblePassword,
                               onChange: (value) {
                                 password = value!;
                               },

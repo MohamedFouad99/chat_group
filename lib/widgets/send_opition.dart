@@ -30,6 +30,7 @@ class SendOpition extends StatelessWidget {
           Expanded(
               child: CustomTextFiled(
             hint: 'Write message..',
+            keyBoardType: TextInputType.text,
             controller: messageTextController,
             onChange: (value) {
               messageText = value;
