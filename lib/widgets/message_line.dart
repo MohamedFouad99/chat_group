@@ -9,11 +9,13 @@ class MessageLine extends StatelessWidget {
     super.key,
     this.text,
     this.image,
+    this.pdf,
     required this.isMe,
     required this.sender,
   });
   final String? sender;
   final String? image;
+  final String? pdf;
   final String? text;
   final bool isMe;
   @override
@@ -51,15 +53,32 @@ class MessageLine extends StatelessWidget {
                           fontSize: 15,
                           color: isMe ? Colors.white : Colors.black45),
                     )
-                  : SizedBox(
-                      width: MediaQuery.of(context).size.width * .4,
-                      child: InkWell(
-                          onTap: () async {
-                            if (await canLaunch(image!)) {
-                              await launch(image!);
-                            }
-                          },
-                          child: Image.network('$image'))),
+                  : image != ""
+                      ? SizedBox(
+                          width: MediaQuery.of(context).size.width * .4,
+                          child: InkWell(
+                            onTap: () async {
+                              if (await canLaunch(image!)) {
+                                await launch(image!);
+                              }
+                            },
+                            child: Image.network('$image'),
+                          ),
+                        )
+                      : pdf != ""
+                          ? SizedBox(
+                              width: MediaQuery.of(context).size.width * .2,
+                              height: MediaQuery.of(context).size.height * .1,
+                              child: InkWell(
+                                  onTap: () async {
+                                    debugPrint(pdf);
+                                    if (await canLaunch(pdf!)) {
+                                      await launch(pdf!);
+                                    }
+                                  },
+                                  child: Image.asset('assets/images/pdf.png')),
+                            )
+                          : const SizedBox(),
             ),
           ),
         ],

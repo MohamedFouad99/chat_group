@@ -45,7 +45,9 @@ class SendOpition extends StatelessWidget {
                   color: kPrimaryColor,
                 )),
             suffixIcon: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<ChatCubit>(context).pickFile();
+                },
                 icon: Icon(
                   Icons.picture_as_pdf,
                   color: kPrimaryColor,
