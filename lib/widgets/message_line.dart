@@ -1,8 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_group/constant/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'audio_message.dart';
 
 class MessageLine extends StatelessWidget {
   const MessageLine({
@@ -22,6 +25,7 @@ class MessageLine extends StatelessWidget {
   final bool isMe;
   @override
   Widget build(BuildContext context) {
+    Source t = UrlSource(record!);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -82,16 +86,10 @@ class MessageLine extends StatelessWidget {
                             )
                           : record != ""
                               ? SizedBox(
-                                  width: MediaQuery.of(context).size.width * .2,
+                                  width: MediaQuery.of(context).size.width * .5,
                                   height:
-                                      MediaQuery.of(context).size.height * .1,
-                                  child: InkWell(
-                                      onTap: () async {
-                                        if (await canLaunch(record!)) {
-                                          await launch(record!);
-                                        }
-                                      },
-                                      child: Icon(Icons.record_voice_over)),
+                                      MediaQuery.of(context).size.height * .08,
+                                  child: AudioMessage(audioUrl: t),
                                 )
                               : const SizedBox(),
             ),
