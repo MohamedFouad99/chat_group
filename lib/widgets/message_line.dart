@@ -10,12 +10,14 @@ class MessageLine extends StatelessWidget {
     this.text,
     this.image,
     this.pdf,
+    this.record,
     required this.isMe,
     required this.sender,
   });
   final String? sender;
   final String? image;
   final String? pdf;
+  final String? record;
   final String? text;
   final bool isMe;
   @override
@@ -78,7 +80,20 @@ class MessageLine extends StatelessWidget {
                                   },
                                   child: Image.asset('assets/images/pdf.png')),
                             )
-                          : const SizedBox(),
+                          : record != ""
+                              ? SizedBox(
+                                  width: MediaQuery.of(context).size.width * .2,
+                                  height:
+                                      MediaQuery.of(context).size.height * .1,
+                                  child: InkWell(
+                                      onTap: () async {
+                                        if (await canLaunch(record!)) {
+                                          await launch(record!);
+                                        }
+                                      },
+                                      child: Icon(Icons.record_voice_over)),
+                                )
+                              : const SizedBox(),
             ),
           ),
         ],

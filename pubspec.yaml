@@ -42,8 +42,10 @@ dependencies:
   flutter_pdfview: ^1.2.9
   flutter_svg: ^1.1.6
   image_picker: ^0.8.7
+  path_provider: ^2.0.13
+  record: ^4.4.4
   url_launcher: ^6.1.10
-
+  
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
