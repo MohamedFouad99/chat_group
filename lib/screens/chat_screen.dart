@@ -3,9 +3,9 @@ import 'package:chat_group/screens/users_screen.dart';
 import 'package:chat_group/screens/welcome_screen.dart';
 import 'package:chat_group/widgets/messages_list.dart';
 import 'package:chat_group/widgets/send_opition.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constant/constant_color.dart';

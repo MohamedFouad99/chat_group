@@ -101,6 +101,7 @@ class RegistrationScreen extends StatelessWidget {
                               ),
                               CustomTextFiled(
                                 hint: 'Enter Your Name',
+                                keyBoardType: TextInputType.text,
                                 onChange: (value) {
                                   displayName = value!;
                                 },
@@ -110,6 +111,7 @@ class RegistrationScreen extends StatelessWidget {
                               ),
                               CustomTextFiled(
                                 hint: 'Enter Your Email',
+                                keyBoardType: TextInputType.emailAddress,
                                 onChange: (value) {
                                   email = value!;
                                 },
@@ -119,6 +121,7 @@ class RegistrationScreen extends StatelessWidget {
                               ),
                               CustomTextFiled(
                                 hint: 'Enter Your Password',
+                                keyBoardType: TextInputType.visiblePassword,
                                 onChange: (value) {
                                   password = value!;
                                 },
