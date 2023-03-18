@@ -1,11 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:audioplayers/audioplayers.dart';
-
+import 'package:chat_group/constant/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'package:chat_group/constant/constant_color.dart';
 
 import 'audio_message.dart';
 
