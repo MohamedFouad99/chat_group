@@ -26,7 +26,7 @@ class ChatCubit extends Cubit<ChatState> {
   String? photoUrl;
   String? pdfUrl;
   String? recordUrl;
-
+  List<String> members = [];
 ////////////////////////////////////////////////////////////////////////////////
 //AudioRecord
   Future<String> getAudioDirectory() async {
@@ -106,6 +106,7 @@ class ChatCubit extends Cubit<ChatState> {
   void sendMessage({
     required String message,
   }) async {
+    //final messageRef = firestore.collection('messages').doc();
     firestore.collection('messages').add({
       'text': message,
       'sender': signedInUser.email,
@@ -113,6 +114,7 @@ class ChatCubit extends Cubit<ChatState> {
       'pdf': pdfUrl ?? "",
       'record': recordUrl ?? "",
       'time': FieldValue.serverTimestamp(),
+      'seen_by': [],
     });
     photoUrl = "";
     pdfUrl = "";
@@ -121,6 +123,7 @@ class ChatCubit extends Cubit<ChatState> {
 
 ////////////////////////////////////////////////////////////////////////////////
   void getMessages() {
+    getAllMember();
     firestore
         .collection('messages')
         .orderBy('time')
@@ -134,6 +137,8 @@ class ChatCubit extends Cubit<ChatState> {
         final image = message.get('image');
         final pdf = message.get('pdf');
         final record = message.get('record');
+        final seenBy = List<String>.from(message.get('seen_by'));
+        final isRead = seenBy.length == members.length - 1;
         final currentUser = signedInUser.email;
         final messageWidget = MessageLine(
           sender: messageSender,
@@ -142,10 +147,29 @@ class ChatCubit extends Cubit<ChatState> {
           record: record,
           text: messageText,
           isMe: currentUser == messageSender,
+          isRead: isRead,
         );
+        if (!isRead && !messageWidget.isMe) {
+          message.reference.update({
+            'seen_by': FieldValue.arrayUnion([currentUser])
+          });
+        }
         messageWidgets.add(messageWidget);
       }
       emit(ChatSuccess(messageWidgets: messageWidgets));
     });
+  }
+
+////////////////////////////////////////////////////////////////////////////
+  Future<void> getAllMember() async {
+    final CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection('users');
+    final QuerySnapshot querySnapshot = await collectionReference.get();
+    final List<DocumentSnapshot> documents = querySnapshot.docs;
+    members.clear();
+    for (final DocumentSnapshot document in documents) {
+      final String email = document.get('email');
+      members.add(email);
+    }
   }
 }
