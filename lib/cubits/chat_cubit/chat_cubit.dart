@@ -4,15 +4,17 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
+
 import '../../screens/chat_screen.dart';
 import '../../widgets/message_line.dart';
+
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
@@ -27,10 +29,6 @@ class ChatCubit extends Cubit<ChatState> {
 
 ////////////////////////////////////////////////////////////////////////////////
 //AudioRecord
-// void playAudio(String audioUrl) async {
-//   AudioPlayer audioPlayer = AudioPlayer();
-//   await audioPlayer.play(audioUrl);
-// }
   Future<String> getAudioDirectory() async {
     Directory directory = await getApplicationDocumentsDirectory();
     return directory.path;
@@ -40,7 +38,9 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> audioRecord(BuildContext context) async {
     String audioDirectory = await getAudioDirectory();
     String audioPath = '$audioDirectory/audio_file.mp3';
-    await audioRecorder.start(path: audioPath);
+    if (await audioRecorder.hasPermission()) {
+      await audioRecorder.start(path: audioPath);
+    }
     await showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(

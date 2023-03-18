@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:chat_group/constant/constant_color.dart';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:chat_group/constant/constant_color.dart';
 
 import 'audio_message.dart';
 
@@ -25,7 +27,7 @@ class MessageLine extends StatelessWidget {
   final bool isMe;
   @override
   Widget build(BuildContext context) {
-    Source t = UrlSource(record!);
+    Source urlRecord = UrlSource(record!);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -76,20 +78,20 @@ class MessageLine extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * .2,
                               height: MediaQuery.of(context).size.height * .1,
                               child: InkWell(
-                                  onTap: () async {
-                                    debugPrint(pdf);
-                                    if (await canLaunch(pdf!)) {
-                                      await launch(pdf!);
-                                    }
-                                  },
-                                  child: Image.asset('assets/images/pdf.png')),
-                            )
+                                onTap: () async {
+                                  debugPrint(pdf);
+                                  if (await canLaunch(pdf!)) {
+                                    await launch(pdf!);
+                                  }
+                                },
+                                child: Image.asset('assets/images/pdf.png'),
+                              ))
                           : record != ""
                               ? SizedBox(
                                   width: MediaQuery.of(context).size.width * .5,
                                   height:
                                       MediaQuery.of(context).size.height * .08,
-                                  child: AudioMessage(audioUrl: t),
+                                  child: AudioMessage(audioUrl: urlRecord),
                                 )
                               : const SizedBox(),
             ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AudioMessage extends StatefulWidget {
   final Source audioUrl;
 
-  AudioMessage({Key? key, required this.audioUrl}) : super(key: key);
+  const AudioMessage({Key? key, required this.audioUrl}) : super(key: key);
 
   @override
   State<AudioMessage> createState() => _AudioMessageState();

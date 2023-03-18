@@ -1,6 +1,6 @@
-import 'package:chat_group/cubits/register_cubit/register_cubit.dart';
-import 'package:chat_group/cubits/sign_in_cubit/sign_in_cubit.dart';
-import 'package:chat_group/screens/users_screen.dart';
+import 'cubits/register_cubit/register_cubit.dart';
+import 'cubits/sign_in_cubit/sign_in_cubit.dart';
+import 'screens/users_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
