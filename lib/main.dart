@@ -1,16 +1,17 @@
-import 'cubits/register_cubit/register_cubit.dart';
-import 'cubits/sign_in_cubit/sign_in_cubit.dart';
-import 'screens/users_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'cubits/chat_cubit/chat_cubit.dart';
+import 'cubits/register_cubit/register_cubit.dart';
+import 'cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'cubits/user_cubit/user_cubit.dart';
 import 'firebase_options.dart';
 import 'screens/chat_screen.dart';
 import 'screens/registration_screen.dart';
 import 'screens/sign_in.dart';
+import 'screens/users_screen.dart';
 import 'screens/welcome_screen.dart';
 
 void main() async {
