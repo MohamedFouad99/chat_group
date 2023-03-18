@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
@@ -132,6 +133,7 @@ class ChatCubit extends Cubit<ChatState> {
       List<MessageLine> messageWidgets = [];
       final messages = event.docs.reversed;
       for (var message in messages) {
+        final time = message.get('time');
         final messageText = message.get('text');
         final messageSender = message.get('sender');
         final image = message.get('image');
@@ -140,6 +142,9 @@ class ChatCubit extends Cubit<ChatState> {
         final seenBy = List<String>.from(message.get('seen_by'));
         final isRead = seenBy.length == members.length - 1;
         final currentUser = signedInUser.email;
+        final timestamp = time.toDate();
+        final timeFormatter = DateFormat('h:mm a');
+        final times = timeFormatter.format(timestamp);
         final messageWidget = MessageLine(
           sender: messageSender,
           image: image,
@@ -148,6 +153,7 @@ class ChatCubit extends Cubit<ChatState> {
           text: messageText,
           isMe: currentUser == messageSender,
           isRead: isRead,
+          time: times,
         );
         if (!isRead && !messageWidget.isMe) {
           message.reference.update({
