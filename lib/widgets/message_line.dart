@@ -17,6 +17,7 @@ class MessageLine extends StatelessWidget {
     this.pdf,
     this.record,
     required this.isMe,
+    required this.isRead,
     required this.sender,
   });
   final String? sender;
@@ -25,6 +26,7 @@ class MessageLine extends StatelessWidget {
   final String? record;
   final String? text;
   final bool isMe;
+  final bool isRead;
   @override
   Widget build(BuildContext context) {
     Source urlRecord = UrlSource(record!);
@@ -96,6 +98,17 @@ class MessageLine extends StatelessWidget {
                               : const SizedBox(),
             ),
           ),
+          isMe
+              ? isRead
+                  ? Icon(
+                      Icons.checklist,
+                      color: kPrimaryColor,
+                    )
+                  : const Icon(
+                      Icons.check,
+                      size: 15,
+                    )
+              : const SizedBox(),
         ],
       ),
     );
