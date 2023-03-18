@@ -17,6 +17,7 @@ class MessageLine extends StatelessWidget {
     required this.isMe,
     required this.isRead,
     required this.sender,
+    this.time,
   });
   final String? sender;
   final String? image;
@@ -25,6 +26,7 @@ class MessageLine extends StatelessWidget {
   final String? text;
   final bool isMe;
   final bool isRead;
+  final String? time;
   @override
   Widget build(BuildContext context) {
     Source urlRecord = UrlSource(record!);
@@ -34,10 +36,12 @@ class MessageLine extends StatelessWidget {
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          Text(
-            '$sender',
-            style: TextStyle(fontSize: 12, color: ksecondryColor),
-          ),
+          !isMe
+              ? Text(
+                  '$sender',
+                  style: TextStyle(fontSize: 12, color: ksecondryColor),
+                )
+              : const SizedBox(),
           Material(
             elevation: 5,
             borderRadius: isMe
@@ -96,17 +100,31 @@ class MessageLine extends StatelessWidget {
                               : const SizedBox(),
             ),
           ),
-          isMe
-              ? isRead
-                  ? Icon(
-                      Icons.checklist,
-                      color: kPrimaryColor,
-                    )
-                  : const Icon(
-                      Icons.check,
-                      size: 15,
-                    )
-              : const SizedBox(),
+          Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: Row(
+              mainAxisAlignment:
+                  isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+              children: [
+                Text(
+                  '$time',
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+                isMe
+                    ? isRead
+                        ? Icon(
+                            Icons.checklist,
+                            color: kPrimaryColor,
+                          )
+                        : const Icon(
+                            Icons.check,
+                            color: Colors.grey,
+                            size: 15,
+                          )
+                    : const SizedBox(),
+              ],
+            ),
+          ),
         ],
       ),
     );
