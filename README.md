@@ -10,6 +10,10 @@ The app allows users to chat with other users who are part of the same group.
 
 o  User authentication using email and password.
 
+o  FireStorage for storing images, PDF files, and  voice notes.
+
+o  FireStore to store messages and user data.
+
 o  Real-time messaging within groups.
 
 o  Sending images, voice notes, and PDF content.
@@ -46,7 +50,7 @@ o Login Screen
 o Users Screen
 
 
-![Users Screen](assets/images/group_member.jpeg)
+![Users Screen](assets/images/members.jpeg)
 
 o Chat Screen
 
