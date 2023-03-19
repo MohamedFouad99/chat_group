@@ -16,6 +16,8 @@ o  FireStore to store messages and user data.
 
 o  Real-time messaging within groups.
 
+o  bloc to manage data.
+
 o  Sending images, voice notes, and PDF content.
 
 o  Confirming the recipient of the message with check marks.
