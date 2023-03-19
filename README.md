@@ -79,7 +79,7 @@ To run this app on your local machine, follow these steps:
 
 
 
- audioplayers: ^3.0.1
+ o audioplayers: ^3.0.1
  
  
  o bloc: ^8.1.1
