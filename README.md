@@ -24,7 +24,35 @@ o  Confirming the recipient of the message with check marks.
 Here are some screenshots of the app:
 
 o Splash Screen
-![Splash Screen](assets/images/splash.png)
+
+
+![Splash Screen](assets/images/splash.jpeg)
+
+o Welcome Screen
+
+
+![Welcome Screen](assets/images/welcome.jpeg)
+
+o Register Screen
+
+
+![Register Screen](assets/images/register.jpeg)![Register Screen](assets/images/register2.jpeg)![Register Screen](assets/images/register3.jpeg)
+
+o Login Screen
+
+
+![Login Screen](assets/images/login.jpeg)
+
+o Users Screen
+
+
+![Users Screen](assets/images/group_member.jpeg)
+
+o Chat Screen
+
+
+![Chat Screen](assets/images/chat.jpeg)![Chat Screen](assets/images/chat2.jpeg)![Chat Screen](assets/images/chat3.jpeg)
+
 
 
 
