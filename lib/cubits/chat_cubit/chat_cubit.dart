@@ -144,7 +144,9 @@ class ChatCubit extends Cubit<ChatState> {
         final currentUser = signedInUser.email;
         final timestamp = time.toDate();
         final timeFormatter = DateFormat('h:mm a');
+        //final dateFormatter = DateFormat('EEE, d/M/y');
         final times = timeFormatter.format(timestamp);
+        // final dates = dateFormatter.format(timestamp);
         final messageWidget = MessageLine(
           sender: messageSender,
           image: image,
@@ -154,6 +156,7 @@ class ChatCubit extends Cubit<ChatState> {
           isMe: currentUser == messageSender,
           isRead: isRead,
           time: times,
+          // date: dates,
         );
         if (!isRead && !messageWidget.isMe) {
           message.reference.update({
