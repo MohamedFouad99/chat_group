@@ -1,10 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:audioplayers/audioplayers.dart' as audio;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 
 import 'package:chat_group/constant/constant_color.dart';
+import 'package:chat_group/helper/show_dialog.dart';
 import 'package:chat_group/widgets/bubble_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,6 +21,7 @@ class MessageLine extends StatelessWidget {
     this.image,
     this.pdf,
     this.record,
+    this.messageRef,
     required this.isMe,
     required this.isRead,
     required this.sender,
@@ -33,12 +37,13 @@ class MessageLine extends StatelessWidget {
   final bool isMe;
   final bool isRead;
   final String? time;
+  final DocumentReference? messageRef;
   final DateTime? date;
   final DateTime? lastDay;
 
   @override
   Widget build(BuildContext context) {
-    Source urlRecord = UrlSource(record!);
+    audio.Source urlRecord = UrlSource(record!);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -59,57 +64,118 @@ class MessageLine extends StatelessWidget {
                 )
               : const SizedBox(),
           text != ""
-              ? BubbleText(
-                  text: '$text ',
-                  color: isMe ? kPrimaryColor : Colors.white,
-                  isSender: isMe,
-                  seen: isRead,
-                  tail: isMe,
-                  sent: true,
-                  textStyle: TextStyle(
-                      fontSize: 16, color: isMe ? Colors.white : Colors.black),
+              ? InkWell(
+                  onLongPress: () {
+                    isMe
+                        ? showAwsomeDialog(
+                            context: context,
+                            content:
+                                'Are you sure you want to delete this message?',
+                            title: 'Delete',
+                            isCanclelable: false,
+                            btnOkOnPress: () async {
+                              await messageRef!.delete();
+                            })
+                        : null;
+                  },
+                  child: BubbleText(
+                    text: '$text ',
+                    color: isMe ? kPrimaryColor : Colors.white,
+                    isSender: isMe,
+                    seen: isRead,
+                    tail: isMe,
+                    sent: true,
+                    textStyle: TextStyle(
+                        fontSize: 16,
+                        color: isMe ? Colors.white : Colors.black),
+                  ),
                 )
               : image != ""
-                  ? SizedBox(
-                      child: BubbleImage(
-                        image: Image.network('$image'),
-                        color: isMe ? kPrimaryColor : Colors.white,
-                        isSender: isMe,
-                        seen: isRead,
-                        tail: isMe,
-                        sent: true,
-                        onTap: () async {
-                          if (await canLaunch(image!)) {
-                            await launch(image!);
-                          }
-                        },
+                  ? InkWell(
+                      onLongPress: () {
+                        isMe
+                            ? showAwsomeDialog(
+                                context: context,
+                                content:
+                                    'Are you sure you want to delete this image?',
+                                title: 'Delete',
+                                isCanclelable: false,
+                                btnOkOnPress: () async {
+                                  await messageRef!.delete();
+                                })
+                            : null;
+                      },
+                      child: SizedBox(
+                        child: BubbleImage(
+                          image: Image.network('$image'),
+                          color: isMe ? kPrimaryColor : Colors.white,
+                          isSender: isMe,
+                          seen: isRead,
+                          tail: isMe,
+                          sent: true,
+                          onTap: () async {
+                            if (await canLaunch(image!)) {
+                              await launch(image!);
+                            }
+                          },
+                        ),
                       ),
                     )
                   : pdf != ""
-                      ? SizedBox(
-                          width: MediaQuery.of(context).size.width * .2,
-                          height: MediaQuery.of(context).size.height * .1,
-                          child: BubbleImage(
-                            image: Image.asset('assets/images/pdf.png'),
-                            color: isMe ? kPrimaryColor : Colors.white,
-                            isSender: isMe,
-                            seen: isRead,
-                            tail: isMe,
-                            sent: true,
-                            onTap: () async {
-                              if (await canLaunch(pdf!)) {
-                                await launch(pdf!);
-                              }
-                            },
+                      ? InkWell(
+                          onLongPress: () {
+                            isMe
+                                ? showAwsomeDialog(
+                                    context: context,
+                                    content:
+                                        'Are you sure you want to delete this Pdf?',
+                                    title: 'Delete',
+                                    isCanclelable: false,
+                                    btnOkOnPress: () async {
+                                      await messageRef!.delete();
+                                    })
+                                : null;
+                          },
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * .2,
+                            height: MediaQuery.of(context).size.height * .1,
+                            child: BubbleImage(
+                              image: Image.asset('assets/images/pdf.png'),
+                              color: isMe ? kPrimaryColor : Colors.white,
+                              isSender: isMe,
+                              seen: isRead,
+                              tail: isMe,
+                              sent: true,
+                              onTap: () async {
+                                if (await canLaunch(pdf!)) {
+                                  await launch(pdf!);
+                                }
+                              },
+                            ),
                           ),
                         )
                       : record != ""
-                          ? SizedBox(
-                              height: MediaQuery.of(context).size.height * .1,
-                              child: AudioMessage(
-                                audioUrl: urlRecord,
-                                isMe: isMe,
-                                isRead: isRead,
+                          ? InkWell(
+                              onLongPress: () {
+                                isMe
+                                    ? showAwsomeDialog(
+                                        context: context,
+                                        content:
+                                            'Are you sure you want to delete this this audio recording?',
+                                        title: 'Delete',
+                                        isCanclelable: false,
+                                        btnOkOnPress: () async {
+                                          await messageRef!.delete();
+                                        })
+                                    : null;
+                              },
+                              child: SizedBox(
+                                height: MediaQuery.of(context).size.height * .1,
+                                child: AudioMessage(
+                                  audioUrl: urlRecord,
+                                  isMe: isMe,
+                                  isRead: isRead,
+                                ),
                               ),
                             )
                           : const SizedBox(),
@@ -136,5 +202,9 @@ class MessageLine extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void deleteMessage(DocumentReference messageRef) async {
+    await messageRef.delete();
   }
 }

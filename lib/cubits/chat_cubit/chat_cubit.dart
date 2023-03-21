@@ -107,8 +107,9 @@ class ChatCubit extends Cubit<ChatState> {
   void sendMessage({
     required String message,
   }) async {
-    //final messageRef = firestore.collection('messages').doc();
-    firestore.collection('messages').add({
+    final messageRef = firestore.collection('messages').doc();
+
+    messageRef.set({
       'text': message,
       'sender': signedInUser.email,
       'image': photoUrl ?? "",
@@ -140,11 +141,13 @@ class ChatCubit extends Cubit<ChatState> {
         final messageSender = message.get('sender');
         final image = message.get('image');
         final pdf = message.get('pdf');
+
         final record = message.get('record');
         final seenBy = List<String>.from(message.get('seen_by'));
         final isRead = seenBy.length == members.length - 1;
         final currentUser = signedInUser.email;
         final timestamp = time.toDate();
+        final messageRef = message.reference;
         final timeFormatter = DateFormat('h:mm a');
         final dateFormatter = DateFormat('EEE, d/M/y');
         final times = timeFormatter.format(timestamp);
@@ -161,6 +164,7 @@ class ChatCubit extends Cubit<ChatState> {
           lastDay:
               messageWidgets.length == messages.length - 1 ? timestamp : null,
           date: changeDay == dates || changeDay == "" ? null : timestampNextDay,
+          messageRef: messageRef,
         );
         timestampNextDay = timestamp;
         changeDay = dates;
