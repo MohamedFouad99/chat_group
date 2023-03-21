@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, deprecated_member_use, unnecessary_import, use_build_context_synchronously, unused_local_variable
+// ignore_for_file: depend_on_referenced_packages, deprecated_member_use, unnecessary_import, use_build_context_synchronously, unused_local_variable, prefer_typing_uninitialized_variables
 
 import 'dart:io';
 
@@ -123,6 +123,8 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
 ////////////////////////////////////////////////////////////////////////////////
+  String changeDay = "";
+  var timestampNextDay;
   void getMessages() {
     getAllMember();
     firestore
@@ -144,9 +146,9 @@ class ChatCubit extends Cubit<ChatState> {
         final currentUser = signedInUser.email;
         final timestamp = time.toDate();
         final timeFormatter = DateFormat('h:mm a');
-        //final dateFormatter = DateFormat('EEE, d/M/y');
+        final dateFormatter = DateFormat('EEE, d/M/y');
         final times = timeFormatter.format(timestamp);
-        // final dates = dateFormatter.format(timestamp);
+        final dates = dateFormatter.format(timestamp);
         final messageWidget = MessageLine(
           sender: messageSender,
           image: image,
@@ -156,8 +158,12 @@ class ChatCubit extends Cubit<ChatState> {
           isMe: currentUser == messageSender,
           isRead: isRead,
           time: times,
-          // date: dates,
+          lastDay:
+              messageWidgets.length == messages.length - 1 ? timestamp : null,
+          date: changeDay == dates || changeDay == "" ? null : timestampNextDay,
         );
+        timestampNextDay = timestamp;
+        changeDay = dates;
         if (!isRead && !messageWidget.isMe) {
           message.reference.update({
             'seen_by': FieldValue.arrayUnion([currentUser])
@@ -165,6 +171,7 @@ class ChatCubit extends Cubit<ChatState> {
         }
         messageWidgets.add(messageWidget);
       }
+      timestampNextDay = null;
       emit(ChatSuccess(messageWidgets: messageWidgets));
     });
   }
