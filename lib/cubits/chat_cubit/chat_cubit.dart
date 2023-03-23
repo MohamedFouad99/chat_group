@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, deprecated_member_use, unnecessary_import, use_build_context_synchronously, unused_local_variable
+// ignore_for_file: depend_on_referenced_packages, deprecated_member_use, unnecessary_import, use_build_context_synchronously, unused_local_variable, prefer_typing_uninitialized_variables
 
 import 'dart:io';
 
@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../screens/chat_screen.dart';
 import '../../widgets/message_line.dart';
 
@@ -45,11 +45,11 @@ class ChatCubit extends Cubit<ChatState> {
     await showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Recording'),
-        content: const Text('Recording in progress...'),
+        title: Text(AppLocalizations.of(context)!.recording),
+        content: Text(AppLocalizations.of(context)!.recordingProgress),
         actions: [
           ElevatedButton(
-            child: const Text('Stop'),
+            child: Text(AppLocalizations.of(context)!.stop),
             onPressed: () async {
               await audioRecorder.stop();
               Navigator.pop(context);
@@ -107,8 +107,9 @@ class ChatCubit extends Cubit<ChatState> {
   void sendMessage({
     required String message,
   }) async {
-    //final messageRef = firestore.collection('messages').doc();
-    firestore.collection('messages').add({
+    final messageRef = firestore.collection('messages').doc();
+
+    messageRef.set({
       'text': message,
       'sender': signedInUser.email,
       'image': photoUrl ?? "",
@@ -123,6 +124,8 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
 ////////////////////////////////////////////////////////////////////////////////
+  String changeDay = "";
+  var timestampNextDay;
   void getMessages() {
     getAllMember();
     firestore
@@ -138,13 +141,17 @@ class ChatCubit extends Cubit<ChatState> {
         final messageSender = message.get('sender');
         final image = message.get('image');
         final pdf = message.get('pdf');
+
         final record = message.get('record');
         final seenBy = List<String>.from(message.get('seen_by'));
         final isRead = seenBy.length == members.length - 1;
         final currentUser = signedInUser.email;
         final timestamp = time.toDate();
+        final messageRef = message.reference;
         final timeFormatter = DateFormat('h:mm a');
+        final dateFormatter = DateFormat('EEE, d/M/y');
         final times = timeFormatter.format(timestamp);
+        final dates = dateFormatter.format(timestamp);
         final messageWidget = MessageLine(
           sender: messageSender,
           image: image,
@@ -154,7 +161,13 @@ class ChatCubit extends Cubit<ChatState> {
           isMe: currentUser == messageSender,
           isRead: isRead,
           time: times,
+          lastDay:
+              messageWidgets.length == messages.length - 1 ? timestamp : null,
+          date: changeDay == dates || changeDay == "" ? null : timestampNextDay,
+          messageRef: messageRef,
         );
+        timestampNextDay = timestamp;
+        changeDay = dates;
         if (!isRead && !messageWidget.isMe) {
           message.reference.update({
             'seen_by': FieldValue.arrayUnion([currentUser])
@@ -162,6 +175,7 @@ class ChatCubit extends Cubit<ChatState> {
         }
         messageWidgets.add(messageWidget);
       }
+      timestampNextDay = null;
       emit(ChatSuccess(messageWidgets: messageWidgets));
     });
   }

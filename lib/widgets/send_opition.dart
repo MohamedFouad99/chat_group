@@ -4,8 +4,7 @@ import 'package:chat_group/cubits/chat_cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../constant/constant_color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'custom_text_form_filed.dart';
 
 class SendOpition extends StatelessWidget {
@@ -28,11 +27,11 @@ class SendOpition extends StatelessWidget {
               },
               icon: Icon(
                 Icons.mic,
-                color: kPrimaryColor,
+                color: Theme.of(context).colorScheme.primary,
               )),
           Expanded(
               child: CustomTextFiled(
-            hint: 'Write message..',
+            hint: AppLocalizations.of(context)!.writing,
             keyBoardType: TextInputType.text,
             controller: messageTextController,
             onChange: (value) {
@@ -45,7 +44,7 @@ class SendOpition extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.image,
-                  color: kPrimaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                 )),
             suffixIcon: IconButton(
                 onPressed: () {
@@ -53,7 +52,7 @@ class SendOpition extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.picture_as_pdf,
-                  color: kPrimaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                 )),
           )),
           IconButton(
@@ -64,7 +63,7 @@ class SendOpition extends StatelessWidget {
               },
               icon: Icon(
                 Icons.send,
-                color: kPrimaryColor,
+                color: Theme.of(context).colorScheme.primary,
               )),
         ],
       ),

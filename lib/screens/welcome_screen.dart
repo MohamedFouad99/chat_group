@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../constant/constant_color.dart';
 import '../widgets/my_button.dart';
 import 'registration_screen.dart';
 import 'sign_in.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -13,7 +13,6 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Center(
@@ -36,27 +35,23 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * .04),
-                      const Text(
-                        'Chat Group',
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xff2e386b),
-                        ),
+                      Text(
+                        AppLocalizations.of(context)!.chatgroup,
+                        style: Theme.of(context).textTheme.headline1,
                       )
                     ],
                   ),
                   const SizedBox(height: 30),
                   MyButton(
-                    color: ksecondryColor,
-                    title: 'Sign In',
+                    color: Theme.of(context).colorScheme.secondary,
+                    title: AppLocalizations.of(context)!.signIn,
                     onPresssed: () {
                       Navigator.pushNamed(context, SignIn.screenRoute);
                     },
                   ),
                   MyButton(
-                    color: kPrimaryColor,
-                    title: 'Register',
+                    color: Theme.of(context).colorScheme.primary,
+                    title: AppLocalizations.of(context)!.register,
                     onPresssed: () {
                       Navigator.pushNamed(
                           context, RegistrationScreen.screenRoute);

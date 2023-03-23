@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print, use_key_in_widget_constructors, prefer_const_constructors, library_private_types_in_public_api
+import 'package:chat_group/screens/settings_screen.dart';
 import 'package:chat_group/screens/users_screen.dart';
 import 'package:chat_group/screens/welcome_screen.dart';
 import 'package:chat_group/widgets/messages_list.dart';
@@ -7,8 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../constant/constant_color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../cubits/chat_cubit/chat_cubit.dart';
 import '../cubits/user_cubit/user_cubit.dart';
 
@@ -36,8 +36,15 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ksecondryColor,
-        title: const Text('BayanatZ Group'),
+        title: Text(
+          AppLocalizations.of(context)!.bayanatz,
+          style: Theme.of(context).textTheme.headline2,
+        ),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, SettingsScreen.screenRoute);
+            },
+            icon: Icon(Icons.settings)),
         actions: [
           IconButton(
             onPressed: () {

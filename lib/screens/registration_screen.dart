@@ -9,8 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../constant/constant_color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../helper/show_snack_bar.dart';
 import '../widgets/custom_text_form_filed.dart';
 import '../widgets/my_button.dart';
@@ -34,7 +33,8 @@ class RegistrationScreen extends StatelessWidget {
         } else if (state is RegisterSuccess) {
           BlocProvider.of<ChatCubit>(context).getMessages();
           Navigator.pushReplacementNamed(context, ChatScreen.screenRoute);
-          showSnackBar(context, 'You created a new account successfully.');
+          showSnackBar(
+              context, AppLocalizations.of(context)!.accountSuccessfully);
           isLoading = false;
         } else if (state is RegisterFailure) {
           showSnackBar(context, state.errorMessage);
@@ -45,7 +45,6 @@ class RegistrationScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Colors.white,
           body: Stack(
             children: [
               Padding(
@@ -101,7 +100,9 @@ class RegistrationScreen extends StatelessWidget {
                                 height: 16,
                               ),
                               CustomTextFiled(
-                                hint: 'Enter Your Name',
+                                hint: AppLocalizations.of(context)!.name,
+                                textStyle:
+                                    Theme.of(context).textTheme.subtitle1,
                                 keyBoardType: TextInputType.text,
                                 onChange: (value) {
                                   displayName = value!;
@@ -111,7 +112,9 @@ class RegistrationScreen extends StatelessWidget {
                                 height: 8,
                               ),
                               CustomTextFiled(
-                                hint: 'Enter Your Email',
+                                hint: AppLocalizations.of(context)!.email,
+                                textStyle:
+                                    Theme.of(context).textTheme.subtitle1,
                                 keyBoardType: TextInputType.emailAddress,
                                 onChange: (value) {
                                   email = value!;
@@ -121,7 +124,9 @@ class RegistrationScreen extends StatelessWidget {
                                 height: 8,
                               ),
                               CustomTextFiled(
-                                hint: 'Enter Your Password',
+                                hint: AppLocalizations.of(context)!.password,
+                                textStyle:
+                                    Theme.of(context).textTheme.subtitle1,
                                 keyBoardType: TextInputType.visiblePassword,
                                 onChange: (value) {
                                   password = value!;
@@ -132,8 +137,11 @@ class RegistrationScreen extends StatelessWidget {
                               const SizedBox(height: 10),
                               imageFile == null
                                   ? MyButton(
-                                      color: ksecondryColor,
-                                      title: 'choose photo',
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      title:
+                                          AppLocalizations.of(context)!.photo,
                                       onPresssed: () {
                                         BlocProvider.of<RegisterCubit>(context)
                                             .pickImage(ImageSource.gallery);
@@ -141,8 +149,8 @@ class RegistrationScreen extends StatelessWidget {
                                     )
                                   : const SizedBox(),
                               MyButton(
-                                color: kPrimaryColor,
-                                title: 'Register',
+                                color: Theme.of(context).colorScheme.primary,
+                                title: AppLocalizations.of(context)!.register,
                                 onPresssed: () async {
                                   if (formKey.currentState!.validate()) {
                                     BlocProvider.of<RegisterCubit>(context)
