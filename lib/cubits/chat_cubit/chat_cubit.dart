@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../screens/chat_screen.dart';
 import '../../widgets/message_line.dart';
 
@@ -45,11 +45,11 @@ class ChatCubit extends Cubit<ChatState> {
     await showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Recording'),
-        content: const Text('Recording in progress...'),
+        title: Text(AppLocalizations.of(context)!.recording),
+        content: Text(AppLocalizations.of(context)!.recordingProgress),
         actions: [
           ElevatedButton(
-            child: const Text('Stop'),
+            child: Text(AppLocalizations.of(context)!.stop),
             onPressed: () async {
               await audioRecorder.stop();
               Navigator.pop(context);

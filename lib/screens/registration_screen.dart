@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../helper/show_snack_bar.dart';
 import '../widgets/custom_text_form_filed.dart';
 import '../widgets/my_button.dart';
@@ -33,7 +33,8 @@ class RegistrationScreen extends StatelessWidget {
         } else if (state is RegisterSuccess) {
           BlocProvider.of<ChatCubit>(context).getMessages();
           Navigator.pushReplacementNamed(context, ChatScreen.screenRoute);
-          showSnackBar(context, 'You created a new account successfully.');
+          showSnackBar(
+              context, AppLocalizations.of(context)!.accountSuccessfully);
           isLoading = false;
         } else if (state is RegisterFailure) {
           showSnackBar(context, state.errorMessage);
@@ -99,7 +100,7 @@ class RegistrationScreen extends StatelessWidget {
                                 height: 16,
                               ),
                               CustomTextFiled(
-                                hint: 'Enter Your Name',
+                                hint: AppLocalizations.of(context)!.name,
                                 textStyle:
                                     Theme.of(context).textTheme.subtitle1,
                                 keyBoardType: TextInputType.text,
@@ -111,7 +112,7 @@ class RegistrationScreen extends StatelessWidget {
                                 height: 8,
                               ),
                               CustomTextFiled(
-                                hint: 'Enter Your Email',
+                                hint: AppLocalizations.of(context)!.email,
                                 textStyle:
                                     Theme.of(context).textTheme.subtitle1,
                                 keyBoardType: TextInputType.emailAddress,
@@ -123,7 +124,7 @@ class RegistrationScreen extends StatelessWidget {
                                 height: 8,
                               ),
                               CustomTextFiled(
-                                hint: 'Enter Your Password',
+                                hint: AppLocalizations.of(context)!.password,
                                 textStyle:
                                     Theme.of(context).textTheme.subtitle1,
                                 keyBoardType: TextInputType.visiblePassword,
@@ -139,7 +140,8 @@ class RegistrationScreen extends StatelessWidget {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary,
-                                      title: 'choose photo',
+                                      title:
+                                          AppLocalizations.of(context)!.photo,
                                       onPresssed: () {
                                         BlocProvider.of<RegisterCubit>(context)
                                             .pickImage(ImageSource.gallery);
@@ -148,7 +150,7 @@ class RegistrationScreen extends StatelessWidget {
                                   : const SizedBox(),
                               MyButton(
                                 color: Theme.of(context).colorScheme.primary,
-                                title: 'Register',
+                                title: AppLocalizations.of(context)!.register,
                                 onPresssed: () async {
                                   if (formKey.currentState!.validate()) {
                                     BlocProvider.of<RegisterCubit>(context)

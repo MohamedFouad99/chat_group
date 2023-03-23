@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomTextFiled extends StatelessWidget {
   const CustomTextFiled(
@@ -33,7 +34,7 @@ class CustomTextFiled extends StatelessWidget {
       onChanged: onChange,
       validator: (value) {
         if (value?.isEmpty ?? true) {
-          return 'Filed is required';
+          return AppLocalizations.of(context)!.filedRequired;
         } else {
           return null;
         }

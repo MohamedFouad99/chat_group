@@ -9,7 +9,7 @@ import 'package:chat_group/widgets/bubble_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'audio_message.dart';
 import 'bubble_image.dart';
 
@@ -71,8 +71,8 @@ class MessageLine extends StatelessWidget {
                         ? showAwsomeDialog(
                             context: context,
                             content:
-                                'Are you sure you want to delete this message?',
-                            title: 'Delete',
+                                AppLocalizations.of(context)!.deleteMessage,
+                            title: AppLocalizations.of(context)!.delete,
                             isCanclelable: false,
                             btnOkOnPress: () async {
                               await messageRef!.delete();
@@ -105,8 +105,8 @@ class MessageLine extends StatelessWidget {
                             ? showAwsomeDialog(
                                 context: context,
                                 content:
-                                    'Are you sure you want to delete this image?',
-                                title: 'Delete',
+                                    AppLocalizations.of(context)!.deleteImage,
+                                title: AppLocalizations.of(context)!.delete,
                                 isCanclelable: false,
                                 btnOkOnPress: () async {
                                   await messageRef!.delete();
@@ -138,8 +138,8 @@ class MessageLine extends StatelessWidget {
                                 ? showAwsomeDialog(
                                     context: context,
                                     content:
-                                        'Are you sure you want to delete this Pdf?',
-                                    title: 'Delete',
+                                        AppLocalizations.of(context)!.deletePdf,
+                                    title: AppLocalizations.of(context)!.delete,
                                     isCanclelable: false,
                                     btnOkOnPress: () async {
                                       await messageRef!.delete();
@@ -175,9 +175,10 @@ class MessageLine extends StatelessWidget {
                                 isMe
                                     ? showAwsomeDialog(
                                         context: context,
-                                        content:
-                                            'Are you sure you want to delete this this audio recording?',
-                                        title: 'Delete',
+                                        content: AppLocalizations.of(context)!
+                                            .deleteRecording,
+                                        title: AppLocalizations.of(context)!
+                                            .delete,
                                         isCanclelable: false,
                                         btnOkOnPress: () async {
                                           await messageRef!.delete();

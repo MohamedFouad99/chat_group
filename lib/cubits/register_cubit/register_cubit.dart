@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
@@ -52,6 +51,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(RegisterFailure(errorMessage: 'weak-password'));
       } else if (e.code == 'email-already-in-use') {
         emit(RegisterFailure(errorMessage: 'email-already-in-use'));
+      } else if (e.code == 'invalid-email') {
+        emit(RegisterFailure(errorMessage: 'invalid-email'));
       }
     } catch (e) {
       emit(RegisterFailure(errorMessage: e.toString()));

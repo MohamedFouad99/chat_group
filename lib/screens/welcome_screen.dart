@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../widgets/my_button.dart';
 import 'registration_screen.dart';
 import 'sign_in.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -35,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
                       SizedBox(
                           height: MediaQuery.of(context).size.height * .04),
                       Text(
-                        'Chat Group',
+                        AppLocalizations.of(context)!.chatgroup,
                         style: Theme.of(context).textTheme.headline1,
                       )
                     ],
@@ -43,14 +44,14 @@ class WelcomeScreen extends StatelessWidget {
                   const SizedBox(height: 30),
                   MyButton(
                     color: Theme.of(context).colorScheme.secondary,
-                    title: 'Sign In',
+                    title: AppLocalizations.of(context)!.signIn,
                     onPresssed: () {
                       Navigator.pushNamed(context, SignIn.screenRoute);
                     },
                   ),
                   MyButton(
                     color: Theme.of(context).colorScheme.primary,
-                    title: 'Register',
+                    title: AppLocalizations.of(context)!.register,
                     onPresssed: () {
                       Navigator.pushNamed(
                           context, RegistrationScreen.screenRoute);
