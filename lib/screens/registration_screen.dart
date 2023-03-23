@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../constant/constant_color.dart';
 import '../helper/show_snack_bar.dart';
 import '../widgets/custom_text_form_filed.dart';
 import '../widgets/my_button.dart';
@@ -45,7 +44,6 @@ class RegistrationScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Colors.white,
           body: Stack(
             children: [
               Padding(
@@ -102,6 +100,8 @@ class RegistrationScreen extends StatelessWidget {
                               ),
                               CustomTextFiled(
                                 hint: 'Enter Your Name',
+                                textStyle:
+                                    Theme.of(context).textTheme.subtitle1,
                                 keyBoardType: TextInputType.text,
                                 onChange: (value) {
                                   displayName = value!;
@@ -112,6 +112,8 @@ class RegistrationScreen extends StatelessWidget {
                               ),
                               CustomTextFiled(
                                 hint: 'Enter Your Email',
+                                textStyle:
+                                    Theme.of(context).textTheme.subtitle1,
                                 keyBoardType: TextInputType.emailAddress,
                                 onChange: (value) {
                                   email = value!;
@@ -122,6 +124,8 @@ class RegistrationScreen extends StatelessWidget {
                               ),
                               CustomTextFiled(
                                 hint: 'Enter Your Password',
+                                textStyle:
+                                    Theme.of(context).textTheme.subtitle1,
                                 keyBoardType: TextInputType.visiblePassword,
                                 onChange: (value) {
                                   password = value!;
@@ -132,7 +136,9 @@ class RegistrationScreen extends StatelessWidget {
                               const SizedBox(height: 10),
                               imageFile == null
                                   ? MyButton(
-                                      color: ksecondryColor,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       title: 'choose photo',
                                       onPresssed: () {
                                         BlocProvider.of<RegisterCubit>(context)
@@ -141,7 +147,7 @@ class RegistrationScreen extends StatelessWidget {
                                     )
                                   : const SizedBox(),
                               MyButton(
-                                color: kPrimaryColor,
+                                color: Theme.of(context).colorScheme.primary,
                                 title: 'Register',
                                 onPresssed: () async {
                                   if (formKey.currentState!.validate()) {

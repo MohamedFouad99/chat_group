@@ -1,3 +1,4 @@
+import 'package:chat_group/my_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          theme: MyThemeData.lightTheme,
+          darkTheme: MyThemeData.darkTheme,
+          themeMode: ThemeMode.dark,
           initialRoute: auth.currentUser != null
               ? ChatScreen.screenRoute
               : WelcomeScreen.screenRoute,

@@ -33,7 +33,6 @@ class _AudioMessageState extends State<AudioMessage> {
   @override
   Widget build(BuildContext context) {
     return BubbleAudio(
-      color: const Color(0xFFE8E8EE),
       duration: widget.duration.inSeconds.toDouble(),
       position: widget.position.inSeconds.toDouble(),
       isPlaying: widget.isPlaying,
@@ -45,6 +44,7 @@ class _AudioMessageState extends State<AudioMessage> {
       isSender: widget.isMe,
       tail: widget.isMe,
       seen: widget.isRead,
+      color: Theme.of(context).colorScheme.onSecondary.withOpacity(.3),
     );
   }
 

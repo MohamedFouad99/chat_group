@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../constant/constant_color.dart';
 import '../widgets/my_button.dart';
 import 'registration_screen.dart';
 import 'sign_in.dart';
@@ -13,7 +12,6 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Center(
@@ -36,26 +34,22 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * .04),
-                      const Text(
+                      Text(
                         'Chat Group',
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xff2e386b),
-                        ),
+                        style: Theme.of(context).textTheme.headline1,
                       )
                     ],
                   ),
                   const SizedBox(height: 30),
                   MyButton(
-                    color: ksecondryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     title: 'Sign In',
                     onPresssed: () {
                       Navigator.pushNamed(context, SignIn.screenRoute);
                     },
                   ),
                   MyButton(
-                    color: kPrimaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                     title: 'Register',
                     onPresssed: () {
                       Navigator.pushNamed(

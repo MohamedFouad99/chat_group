@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constant/constant_color.dart';
-
 class CustomTextFiled extends StatelessWidget {
   const CustomTextFiled(
       {super.key,
@@ -13,6 +11,7 @@ class CustomTextFiled extends StatelessWidget {
       this.obscure = false,
       this.prefixIcon,
       this.suffixIcon,
+      this.textStyle,
       this.onChange});
   final String hint;
   final TextEditingController? controller;
@@ -23,6 +22,7 @@ class CustomTextFiled extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextInputType keyBoardType;
+  final TextStyle? textStyle;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -40,14 +40,15 @@ class CustomTextFiled extends StatelessWidget {
       },
       maxLines: maxLines,
       textAlign: TextAlign.center,
-      cursorColor: kPrimaryColor,
+      cursorColor: Theme.of(context).colorScheme.primary,
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hint,
+        hintStyle: textStyle,
         border: buildBorder(),
-        enabledBorder: buildBorder(ksecondryColor),
-        focusedBorder: buildBorder(kPrimaryColor),
+        enabledBorder: buildBorder(Theme.of(context).colorScheme.secondary),
+        focusedBorder: buildBorder(Theme.of(context).colorScheme.primary),
       ),
     );
   }

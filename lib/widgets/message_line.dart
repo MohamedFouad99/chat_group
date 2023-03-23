@@ -4,7 +4,6 @@ import 'package:audioplayers/audioplayers.dart' as audio;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 
-import 'package:chat_group/constant/constant_color.dart';
 import 'package:chat_group/helper/show_dialog.dart';
 import 'package:chat_group/widgets/bubble_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -60,7 +59,9 @@ class MessageLine extends StatelessWidget {
           !isMe
               ? Text(
                   '$sender',
-                  style: TextStyle(fontSize: 12, color: ksecondryColor),
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).colorScheme.secondary),
                 )
               : const SizedBox(),
           text != ""
@@ -80,14 +81,21 @@ class MessageLine extends StatelessWidget {
                   },
                   child: BubbleText(
                     text: '$text ',
-                    color: isMe ? kPrimaryColor : Colors.white,
+                    color: isMe
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context)
+                            .colorScheme
+                            .onPrimary
+                            .withOpacity(.5),
                     isSender: isMe,
                     seen: isRead,
                     tail: isMe,
                     sent: true,
                     textStyle: TextStyle(
                         fontSize: 16,
-                        color: isMe ? Colors.white : Colors.black),
+                        color: isMe
+                            ? Colors.white
+                            : Theme.of(context).colorScheme.surface),
                   ),
                 )
               : image != ""
@@ -108,7 +116,9 @@ class MessageLine extends StatelessWidget {
                       child: SizedBox(
                         child: BubbleImage(
                           image: Image.network('$image'),
-                          color: isMe ? kPrimaryColor : Colors.white,
+                          color: isMe
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.white,
                           isSender: isMe,
                           seen: isRead,
                           tail: isMe,
@@ -138,10 +148,15 @@ class MessageLine extends StatelessWidget {
                           },
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * .2,
-                            height: MediaQuery.of(context).size.height * .1,
                             child: BubbleImage(
-                              image: Image.asset('assets/images/pdf.png'),
-                              color: isMe ? kPrimaryColor : Colors.white,
+                              image: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 16, horizontal: 8),
+                                child: Image.asset('assets/images/pdf.png'),
+                              ),
+                              color: isMe
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Colors.white,
                               isSender: isMe,
                               seen: isRead,
                               tail: isMe,

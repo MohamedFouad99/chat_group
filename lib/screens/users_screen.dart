@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:chat_group/constant/constant_color.dart';
 import 'package:chat_group/cubits/user_cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,8 +24,10 @@ class UsersScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-              backgroundColor: ksecondryColor,
-              title: const Text('Group Member')),
+              title: Text(
+            'Group Member',
+            style: Theme.of(context).textTheme.headline2,
+          )),
           body: ListView.builder(
               itemCount: names.length,
               itemBuilder: (context, index) {
@@ -34,7 +35,10 @@ class UsersScreen extends StatelessWidget {
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(photos[index]),
                   ),
-                  title: Text(names[index]),
+                  title: Text(
+                    names[index],
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
                   subtitle: Text(emails[index]),
                 );
               }),

@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../constant/constant_color.dart';
 import '../cubits/chat_cubit/chat_cubit.dart';
 import '../cubits/user_cubit/user_cubit.dart';
 
@@ -36,8 +35,11 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ksecondryColor,
-        title: const Text('BayanatZ Group'),
+        title: Text(
+          'BayanatZ Group',
+          style: Theme.of(context).textTheme.headline2,
+        ),
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.dark_mode)),
         actions: [
           IconButton(
             onPressed: () {

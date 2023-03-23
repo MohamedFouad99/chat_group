@@ -29,7 +29,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
- 
   audioplayers: ^3.0.1
   awesome_dialog: ^3.0.2
   bloc: ^8.1.1
@@ -49,7 +48,9 @@ dependencies:
   flutter_webview_pro: ^3.0.1+4
   image_picker: ^0.8.7
   path_provider: ^2.0.13
+  provider: ^6.0.5
   record: ^4.4.4
+  shared_preferences: ^2.0.20
   url_launcher: ^6.1.10
 
 dev_dependencies:

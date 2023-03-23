@@ -118,11 +118,12 @@ class BubbleAudio extends StatelessWidget {
                 RawMaterialButton(
                   onPressed: onPlayPauseButtonClick,
                   elevation: 1.0,
-                  fillColor: Colors.white,
+                  fillColor: Theme.of(context).colorScheme.onSurface,
                   child: !isPlaying
                       ? const Icon(
                           Icons.play_arrow,
                           size: 30.0,
+                          color: Colors.white,
                         )
                       : isLoading
                           ? const CircularProgressIndicator()
@@ -130,10 +131,12 @@ class BubbleAudio extends StatelessWidget {
                               ? const Icon(
                                   Icons.play_arrow,
                                   size: 30.0,
+                                  color: Colors.white,
                                 )
                               : const Icon(
                                   Icons.pause,
                                   size: 30.0,
+                                  color: Colors.white,
                                 ),
                   shape: const CircleBorder(),
                 ),
