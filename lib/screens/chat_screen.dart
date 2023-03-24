@@ -29,11 +29,11 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     getCurrentUser();
-    BlocProvider.of<ChatCubit>(context).getMessages();
   }
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<ChatCubit>(context).getMessages();
     return Scaffold(
       appBar: AppBar(
         title: Text(

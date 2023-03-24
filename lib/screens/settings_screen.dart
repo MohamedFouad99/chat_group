@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
+import '../cubits/chat_cubit/chat_cubit.dart';
 import '../providers/language_provider.dart';
 import '../providers/theme_provider.dart';
 
@@ -27,9 +29,15 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            BlocProvider.of<ChatCubit>(context).getMessages();
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
           AppLocalizations.of(context)!.setting,
           style: Theme.of(context).textTheme.headline2,

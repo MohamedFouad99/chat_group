@@ -29,7 +29,7 @@ class MyThemeData {
     appBarTheme: AppBarTheme(
       color: lightSecondary,
       elevation: 4,
-      iconTheme: IconThemeData(color: colorBlack),
+      iconTheme: IconThemeData(color: colorWhite),
     ),
     textTheme: TextTheme(
       headline1: TextStyle(
@@ -40,7 +40,7 @@ class MyThemeData {
       headline2: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
-        color: colorBlack,
+        color: colorWhite,
       ),
       subtitle1: TextStyle(
         fontSize: 18,

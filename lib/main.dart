@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:chat_group/my_theme.dart';
 import 'package:chat_group/providers/language_provider.dart';
 import 'package:chat_group/providers/theme_provider.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'cubits/chat_cubit/chat_cubit.dart';
 import 'cubits/register_cubit/register_cubit.dart';
 import 'cubits/sign_in_cubit/sign_in_cubit.dart';
@@ -25,6 +28,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
@@ -36,10 +40,18 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  late LanguageProvider providerLanguage;
+  late ThemeProvider provider;
+
   final auth = FirebaseAuth.instance;
-  MyApp({super.key});
+  MyApp({super.key}) {
+    sharedPref();
+  }
+
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<ThemeProvider>(context);
+    providerLanguage = Provider.of<LanguageProvider>(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -57,7 +69,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
+          localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -65,7 +77,7 @@ class MyApp extends StatelessWidget {
           ],
           locale:
               Locale(Provider.of<LanguageProvider>(context).currentLanguage),
-          supportedLocales: [
+          supportedLocales: const [
             Locale('en'), // English
             Locale('ar'), // Arabic
           ],
@@ -84,5 +96,17 @@ class MyApp extends StatelessWidget {
             SettingsScreen.screenRoute: (context) => SettingsScreen(),
           }),
     );
+  }
+
+  void sharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    providerLanguage.changeLanguage(prefs.getString('language') ?? 'en');
+    if (prefs.getString('theme') == 'light') {
+      provider.changeTheme(ThemeMode.light);
+    } else if (prefs.getString('theme') == 'dark') {
+      provider.changeTheme(ThemeMode.dark);
+    } else {
+      provider.changeTheme(ThemeMode.dark);
+    }
   }
 }
