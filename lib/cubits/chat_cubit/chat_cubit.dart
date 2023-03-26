@@ -28,8 +28,22 @@ class ChatCubit extends Cubit<ChatState> {
   String? pdfUrl;
   String? recordUrl;
   List<String> members = [];
+  String changeDay = "";
+  var timestampNextDay;
 ////////////////////////////////////////////////////////////////////////////////
 //AudioRecord
+
+//This code defines three functions that deal with recording and uploading
+// audio files to Firebase. The [getAudioDirectory()] function returns the path
+//to the application's documents directory, which will be used to save the recorded
+// audio file. The [audioRecord()] function first gets the audio directory path,
+// then checks if the app has permission to access the device's microphone.
+// If permission is granted, the function starts recording and shows a dialog to
+// indicate that the recording is in progress. When the user stops the recording,
+// the audio file is uploaded to Firebase using the [uploadFileToFirebase()] function,
+// which returns a download URL for the file. The URL is then used to send a message
+// containing the audio file to the appropriate recipient.
+
   Future<String> getAudioDirectory() async {
     Directory directory = await getApplicationDocumentsDirectory();
     return directory.path;
@@ -76,6 +90,15 @@ class ChatCubit extends Cubit<ChatState> {
 
   //////////////////////////////////////////////////////////////////////////////
   //PDF
+  // This code defines a function called pickFile() that allows the user to
+  //select a PDF file from their device and upload it to Firebase.
+  //The function uses the FilePicker plugin to prompt the user to select a file
+  //with the ".pdf" extension. If a file is selected, the function creates a File
+  //object from the selected file and uploads it to Firebase Storage using the
+  //putFile() method of a Reference object. Once the upload is complete,
+  //the function retrieves the download URL for the uploaded file and stores it
+  //in the pdfUrl variable.
+
   Future<void> pickFile() async {
     FilePickerResult? pickedPdf = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -93,6 +116,17 @@ class ChatCubit extends Cubit<ChatState> {
 
 ////////////////////////////////////////////////////////////////////////////////
 //Image
+
+// This code defines a function called pickImage() that allows the user to
+//select an image from device's photo gallery, and then upload the image
+//to Firebase. The function uses the ImagePicker plugin to prompt the user
+//to select an image from photo gallery, and then creates a File object from
+//the selected image. The File object is then uploaded to Firebase Storage
+//using the putFile() method of a Reference object, which specifies the name
+//and location of the file in Firebase. Once the upload is complete,
+//the function retrieves the download URL for the uploaded image
+//and stores it in the photoUrl variable
+
   Future<void> pickImage(ImageSource source) async {
     PickedFile? pickedFile = await picker.getImage(source: source);
     imageFile = File(pickedFile!.path);
@@ -104,6 +138,17 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+// This code defines a function called sendMessage() that sends a message to
+//Firestore with the message text, sender email, and any associated media
+//files (image, PDF, and record). The function creates a new document in the
+//messages collection using the doc() method, which generates a unique document ID.
+//The document data is then set using the set() method, which takes a map
+//of key-value pairs representing the fields and values to be stored in the document.
+//The function also sets the time field to the current server timestamp using the FieldValue.
+//serverTimestamp() method. Finally, any associated media URLs (photoUrl, pdfUrl, and recordUrl)
+//are reset to an empty string to prevent them from being sent with subsequent messages.
+
   void sendMessage({
     required String message,
   }) async {
@@ -124,8 +169,19 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
 ////////////////////////////////////////////////////////////////////////////////
-  String changeDay = "";
-  var timestampNextDay;
+
+// This code defines a function called getMessages which retrieves and displays
+//messages from a Firestore database. It first calls a function called getAllMember
+//which is not shown in the code snippet. It then queries the Firestore collection
+//named 'messages', orders the messages by their timestamp in ascending order and
+//listens to any changes to the collection. Once it receives new messages,
+//it extracts various fields such as the message text, sender, image, pdf,
+//record, and seen_by, and creates a MessageLine widget for each message.
+//For each message, it checks whether the message has been read by all members
+//except the current user, and if not, it updates the Firestore database with
+//the current user's ID. Finally, the function emits a state with a list of
+//MessageLine widgets to update the chat interface.
+
   void getMessages() {
     getAllMember();
     firestore
@@ -141,7 +197,6 @@ class ChatCubit extends Cubit<ChatState> {
         final messageSender = message.get('sender');
         final image = message.get('image');
         final pdf = message.get('pdf');
-
         final record = message.get('record');
         final seenBy = List<String>.from(message.get('seen_by'));
         final isRead = seenBy.length == members.length - 1;
@@ -181,6 +236,12 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
 ////////////////////////////////////////////////////////////////////////////
+  //This function retrieves all members' emails from the Firestore 'users' collection
+  //and stores them in a list called 'members'. It first creates a
+  //CollectionReference object for the 'users' collection and retrieves all
+  //documents in the collection using get(). Then, it loops through the documents
+  //and extracts the 'email' field from each document and adds it to
+  //the 'members' list. The list is cleared before adding the emails to avoid duplicates.
   Future<void> getAllMember() async {
     final CollectionReference collectionReference =
         FirebaseFirestore.instance.collection('users');

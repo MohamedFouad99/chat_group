@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 const double BUBBLE_RADIUS_IMAGE = 16;
 
 ///basic image bubble type
-///
-///
-/// image bubble should have [id] to work with Hero animations
-/// [id] must be a unique value
 ///chat bubble [BorderRadius] can be customized using [bubbleRadius]
 ///chat bubble color can be customized using [color]
 ///chat bubble tail can be customized  using [tail]

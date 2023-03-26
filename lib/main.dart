@@ -23,6 +23,20 @@ import 'screens/sign_in.dart';
 import 'screens/users_screen.dart';
 import 'screens/welcome_screen.dart';
 
+// This is a Flutter app's entry point main.dart. Here's what it does:
+// Initializes Firebase services using Firebase.initializeApp().
+// Defines a MyApp widget as the root of the application.
+// Wraps MyApp with MultiProvider, which allows sharing of state between
+// different parts of the widget tree.
+// Initializes the shared preferences using the sharedPref() function.
+// Returns a MaterialApp widget as the child of MultiBlocProvider,
+// which provides state management for different parts of the app using BlocProvider.
+// Configures the MaterialApp widget with the app's basic information and settings,
+// such as supported locales, theme data, and initial route.
+// In addition, MyApp widget uses Provider.of to access the ThemeProvider and
+// LanguageProvider state from the MultiProvider wrapper. The sharedPref() function
+// reads the user's preferences for language and theme mode, then sets the
+// state for these preferences in the appropriate state providers.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

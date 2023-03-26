@@ -1,6 +1,9 @@
 // ignore_for_file: sort_child_properties_last, constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/language_provider.dart';
 
 const double BUBBLE_RADIUS_AUDIO = 16;
 
@@ -140,17 +143,26 @@ class BubbleAudio extends StatelessWidget {
                                 ),
                   shape: const CircleBorder(),
                 ),
-                Slider(
-                  min: 0.0,
-                  max: duration ?? 0.0,
-                  value: position ?? 0.0,
-                  onChanged: onSeekChanged,
+                Expanded(
+                  child: Slider(
+                    min: 0.0,
+                    max: duration ?? 0.0,
+                    value: position ?? 0.0,
+                    onChanged: onSeekChanged,
+                  ),
                 ),
               ],
             ),
             Positioned(
               bottom: 8,
-              right: 25,
+              right:
+                  Provider.of<LanguageProvider>(context).currentLanguage == 'en'
+                      ? 25
+                      : null,
+              left:
+                  Provider.of<LanguageProvider>(context).currentLanguage == 'ar'
+                      ? 25
+                      : null,
               child: Text(
                 audioTimer(duration ?? 0.0, position ?? 0.0),
                 style: textStyle,

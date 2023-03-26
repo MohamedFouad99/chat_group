@@ -5,13 +5,20 @@ import 'package:chat_group/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../cubits/chat_cubit/chat_cubit.dart';
 import '../helper/show_snack_bar.dart';
 import '../widgets/custom_text_form_filed.dart';
 import '../widgets/my_button.dart';
 import 'chat_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+// sign-in screen and contains form fields for email and password, along with a
+// login button. It has a formKey property of type GlobalKey<FormState> for validation purposes.
+// It also uses BlocConsumer to consume state changes from a SignInCubit. Based on
+// the state changes, the screen updates its UI and shows a loading indicator when
+// the user tries to log in.
+// When the user successfully logs in, it navigates to the ChatScreen. In case of
+// any failure, it shows an error message through a snack bar.
 
 class SignIn extends StatelessWidget {
   static const String screenRoute = 'signin_screen';
