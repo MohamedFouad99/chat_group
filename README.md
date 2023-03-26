@@ -107,6 +107,16 @@ o Settings Screen
 o Chat Screen
 
 
+  On the chat screen, there is an app bar that contains an icon for displaying group members,
+  
+  an icon for settings through which you can change the theme and language,
+  
+  and an icon for logging out.
+  
+  On the chat screen, you can either send a text, an image, 
+  
+  a PDF file, or an audio record.
+
 ![Chat Screen](assets/images/chat3.jpeg)![Chat Screen](assets/images/chat1.jpeg)![Chat Screen](assets/images/chat2.jpeg)
 
 
