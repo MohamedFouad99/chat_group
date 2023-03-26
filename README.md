@@ -94,7 +94,12 @@ o Users Screen
 To Displays all members of the group.
 
 
+
 ![Users Screen](assets/images/members.jpeg)
+ 
+o Settings Screen
+ 
+![Settings Screen](assets/images/settings.jpeg)
 
 o Chat Screen
 
