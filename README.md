@@ -99,7 +99,7 @@ To Displays all members of the group.
 o Chat Screen
 
 
-![Chat Screen](assets/images/chat.jpeg)![Chat Screen](assets/images/chat2.jpeg)![Chat Screen](assets/images/chat3.jpeg)
+![Chat Screen](assets/images/chat3.jpeg)![Chat Screen](assets/images/chat1.jpeg)![Chat Screen](assets/images/chat2.jpeg)
 
 
 
