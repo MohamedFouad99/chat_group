@@ -4,6 +4,18 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_group/widgets/bubble_audio.dart';
 import 'package:flutter/material.dart';
 
+// AudioMessage that displays an audio message. The widget takes in a Source
+// object for the audio URL, a bool to determine if the message is sent by the user,
+// and another bool to determine if the message has been read by the recipient.
+// The AudioMessage widget creates a BubbleAudio widget with certain properties
+// based on the state of the widget. The state of the widget is managed by
+// _AudioMessageState, which is a private class that extends State<AudioMessage>.
+// The state class defines methods _changeSeek and _playAudio that control seeking
+// and playing of the audio respectively.
+// The state class creates an AudioPlayer object to play the audio and sets up
+// listeners for changes in the duration and position of the audio, as well as
+// completion of the audio playback. The state class also manages the state of
+// the widget, such as whether the audio is currently playing, paused, or loading.
 class AudioMessage extends StatefulWidget {
   final Source audioUrl;
   final bool isMe;

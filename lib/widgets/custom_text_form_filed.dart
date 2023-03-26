@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+// This code defines a custom text field widget that extends StatelessWidget.
+// It takes in several parameters, including hint, keyboardType, maxLines,
+// onSaved, controller, obscure, prefixIcon, suffixIcon, textStyle, and onChange.
+// In the build method, it returns a TextFormField widget with customized
+// properties such as keyboardType, controller, obscureText, onSaved, maxLines,
+// textAlign, cursorColor, and decoration. It also defines validator to check if
+// the input value is empty or not. The decoration parameter includes prefixIcon,
+// suffixIcon, hintText, and border properties.
+// The buildBorder method creates an OutlineInputBorder with a rounded border
+// radius of 8 and a borderSide of a specified color or white if not provided.
 class CustomTextFiled extends StatelessWidget {
   const CustomTextFiled(
       {super.key,
@@ -32,6 +42,19 @@ class CustomTextFiled extends StatelessWidget {
       obscureText: obscure,
       onSaved: onSaved,
       onChanged: onChange,
+      // validator: (text) {
+      //   if (text == null || text.trim().isEmpty) {
+      //     return 'Please enter Email';
+      //   }
+
+      //   bool emailValid = RegExp(
+      //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+      //       .hasMatch(text);
+      //   if (!emailValid) {
+      //     return 'email format not valid';
+      //   }
+      //   return null;
+      // },
       validator: (value) {
         if (value?.isEmpty ?? true) {
           return AppLocalizations.of(context)!.filedRequired;

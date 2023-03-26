@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
+// This is a function that displays an AwesomeDialog widget, which is
+// a customizable dialog box with various styles and animations. The function
+// takes in several required parameters including the BuildContext, the dialog
+// content and title, a boolean indicating whether the dialog can be cancelled,
+// and a callback function to execute when the "Ok" button is pressed.
+// The function sets up the AwesomeDialog widget with the specified parameters
+// and then calls the 'show()' method to display the dialog to the user.
 void showAwsomeDialog(
     {required BuildContext context,
     required String content,

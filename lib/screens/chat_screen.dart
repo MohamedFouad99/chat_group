@@ -12,6 +12,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../cubits/chat_cubit/chat_cubit.dart';
 import '../cubits/user_cubit/user_cubit.dart';
 
+// The class has a messageText String object that stores the user's message.
+// The initState method is used to initialize the current user. The build method
+// returns a Scaffold widget that contains an AppBar with an icon button for settings,
+// icon button for show members and user logout. The body of the Scaffold
+// widget has a MessagesList widget that displays the list of messages and
+// a SendOption widget to allow the user to send messages with different types.
+// Finally, there is a getCurrentUser method that attempts to get the current user.
 final firestore = FirebaseFirestore.instance;
 late User signedInUser; //to give us the email
 
@@ -29,11 +36,11 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     getCurrentUser();
-    BlocProvider.of<ChatCubit>(context).getMessages();
   }
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<ChatCubit>(context).getMessages();
     return Scaffold(
       appBar: AppBar(
         title: Text(

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+//This is a custom reusable widget called MyButton. It is a stateless widget
+// that takes in some required parameters in its constructor.
+// These parameters are the button's color, title, and the onPresssed
+// callback function that gets triggered when the button is pressed.
 class MyButton extends StatelessWidget {
   const MyButton(
       {super.key,

@@ -14,6 +14,19 @@ import '../helper/show_snack_bar.dart';
 import '../widgets/custom_text_form_filed.dart';
 import '../widgets/my_button.dart';
 
+// This code defines a registration screen widget in a Flutter app using the
+// StatelessWidget class. It contains form fields for user registration data,
+// such as name, email, password, and profile picture. The user can register by
+// filling out the form and clicking the "register" button, which triggers
+// a registration process via a RegisterCubit bloc.
+// The widget listens to the RegisterState changes and displays a loading
+// indicator while waiting for the registration process to complete. If the
+// registration is successful, the widget navigates the user to the chat screen
+// and shows a success message. If the registration fails, an error message is displayed.
+// The code also defines a GlobalKey object to validate the form fields and a
+// File object to store the user's selected profile picture.
+// Finally, it uses several custom widgets, such as CustomTextFiled and MyButton,
+// to build the UI of the registration form.
 class RegistrationScreen extends StatelessWidget {
   static const String screenRoute = 'register_screen';
   late String displayName;

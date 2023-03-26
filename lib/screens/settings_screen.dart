@@ -3,10 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/language_provider.dart';
 import '../providers/theme_provider.dart';
 
+// This code defines a SettingsScreen class which extends StatelessWidget and
+// displays a screen that allows the user to change the app's theme and language.
+// It defines two dropdown menus, one for selecting the app theme and the other
+// for selecting the app language. The selected values of each dropdown menu are
+// stored in dropdownvalue and dropdownvalueLanguage respectively.
+// The class also makes use of Provider to get the current ThemeProvider and
+// LanguageProvider instances, which are used to change the app's theme and
+// language based on the selected values from the dropdown menus.
 class SettingsScreen extends StatelessWidget {
   static const String screenRoute = 'settings_screen';
   SettingsScreen({super.key});
@@ -27,9 +34,14 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
           AppLocalizations.of(context)!.setting,
           style: Theme.of(context).textTheme.headline2,

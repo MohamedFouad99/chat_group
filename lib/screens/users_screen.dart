@@ -5,6 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+// This code defines a UsersScreen widget that displays a list of users.
+// It includes three lists to hold the names, emails, and photos of the users,
+// and a BlocConsumer to listen to changes in the UserCubit state. When the
+// state is UserSuccess, the widget updates the lists with the new values.
+// The widget displays the list of users in a ListView.builder, where each user
+// is represented as a ListTile containing a circle avatar, the user's name,
+// and their email address.
 class UsersScreen extends StatelessWidget {
   static const String screenRoute = 'users_screen';
 

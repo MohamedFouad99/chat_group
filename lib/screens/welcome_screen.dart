@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../widgets/my_button.dart';
 import 'registration_screen.dart';
 import 'sign_in.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+// It displays a welcome screen with a logo and two buttons for sign-in and registration.
+// The logo is an SVG image that is scaled based on the screen size.
+// The MyButton widget is used to create two buttons, one for signing in and
+// the other for registration
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
   static const String screenRoute = 'welcome_screen';

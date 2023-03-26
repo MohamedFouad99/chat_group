@@ -16,12 +16,19 @@ class RegisterCubit extends Cubit<RegisterState> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
   final ImagePicker picker = ImagePicker();
-
+//pickImage(): a method that allows the user to pick an image from
+//their device's gallery.
   Future<void> pickImage(ImageSource source) async {
     PickedFile? pickedFile = await picker.getImage(source: source);
     emit(PickedImageSuccess(imageFile: File(pickedFile!.path)));
   }
 
+//registerUser(): a method that handles the registration process by creating
+//a new user account with the given email and password, uploading the user's
+//profile image to FirebaseStorage, and storing the user's information in
+//FirebaseFirestore. The method emits a loading state while it performs the
+//registration process, and then either emits a RegisterSuccess state or a
+//RegisterFailure state if an error occurs during the registration process.
   Future<void> registerUser(
       {required String displayName,
       required String email,

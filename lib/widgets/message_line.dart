@@ -13,6 +13,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'audio_message.dart';
 import 'bubble_image.dart';
 
+// This is a class MessageLine that extends StatelessWidget. It represents a
+// single message in a chat application and takes several parameters including
+// sender, text, image, pdf, record, isMe, isRead, sender, time, messageRef,
+// date, and lastDay. The class has a build method that returns a Column widget
+// with a Padding widget containing the message content, sender name, and
+// message timestamp. Depending on the type of message (text, image, pdf, or record),
+// it creates and returns a BubbleText, BubbleImage, or AudioMessage widget.
+// There is also a deleteMessage method that takes a DocumentReference
+// as a parameter and deletes the message from the database
 class MessageLine extends StatelessWidget {
   const MessageLine({
     super.key,
