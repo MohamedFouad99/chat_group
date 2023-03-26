@@ -54,10 +54,15 @@ o Users Screen
 
 ![Users Screen](assets/images/members.jpeg)
 
+o Settings Screen
+
+
+![Settings Screen](assets/images/settings.jpeg)
+
 o Chat Screen
 
 
-![Chat Screen](assets/images/chat.jpeg)![Chat Screen](assets/images/chat2.jpeg)![Chat Screen](assets/images/chat3.jpeg)
+![Chat Screen](assets/images/chat3.jpeg)![Chat Screen](assets/images/chat1.jpeg)![Chat Screen](assets/images/chat2.jpeg)
 
 
 
